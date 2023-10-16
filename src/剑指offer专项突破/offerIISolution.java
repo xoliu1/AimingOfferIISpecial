@@ -1,16 +1,24 @@
 package 剑指offer专项突破;
 
-import java.util.*;
 
-public class offerIISolution {
-}
+
+
+
+import 数据结构.ListNode;
+
+import java.util.*;
 
 
 class offer {
     /**
      * 剑指 Offer II 001. 整数除法
-     */
-     
+     * @param dividend
+     * @param divisor
+     * @return int
+     * @author xoliu
+     * @create 2023/10/16 16:19
+     **/
+
 
     public int divide(int dividend, int divisor) {
         if (dividend == 0) {
@@ -35,7 +43,13 @@ class offer {
 
     /**
      * 剑指 Offer II 002. 二进制加法
-     */
+     * @param a
+     * @param b
+     * @return java.lang.String
+     * @author xoliu
+     * @create 2023/10/16 16:19
+     **/
+
     public String addBinary(String a, String b) {
         StringBuilder ans = new StringBuilder();
         int i = a.length() - 1, j = b.length() - 1;
@@ -56,7 +70,12 @@ class offer {
 
     /**
      * 剑指 Offer II 003. 前 n 个数字二进制中 1 的个数
-     */
+     * @param n
+     * @return int[]
+     * @author xoliu
+     * @create 2023/10/16 16:19
+     **/
+
     public int[] countBits(int n) {
         int[] ans = new int[n + 1];
         for (int i = 1; i <= n; ++i) {
@@ -71,7 +90,12 @@ class offer {
 
     /**
      * 剑指 Offer II 004. 只出现一次的数字
-     */
+     * @param nums
+     * @return int
+     * @author xoliu
+     * @create 2023/10/16 15:22
+     **/
+
     public int singleNumber(int[] nums) {
         int[] digit = new int[32];
         for (int i = 0; i < nums.length; ++i) {
@@ -88,7 +112,12 @@ class offer {
 
     /**
      * 剑指 Offer II 005. 单词长度的最大乘积
-     */
+     * @param words
+     * @return int
+     * @author xoliu
+     * @create 2023/10/16 15:22
+     **/
+
     public int maxProduct(String[] words) {
         boolean[][] hashmap = new boolean[words.length][26];
         for (int i = 0; i < words.length; ++i) {
@@ -117,7 +146,13 @@ class offer {
 
     /**
      * 剑指 Offer II 006. 排序数组中两个数字之和
-     */
+     * @param numbers
+     * @param target
+     * @return int[]
+     * @author xoliu
+     * @create 2023/10/16 15:22
+     **/
+
     public int[] twoSum(int[] numbers, int target) {
         int i = 0, j = numbers.length - 1;
         while (i < j) {
@@ -134,7 +169,12 @@ class offer {
 
     /**
      * 剑指 Offer II 007. 数组中和为 0 的三个数
-     */
+     * @param nums
+     * @return java.util.List<java.util.List < java.lang.Integer>>
+     * @author xoliu
+     * @create 2023/10/16 15:22
+     **/
+
     //twosum的进化，且要进行去重处理
     public List<List<Integer>> threeSum(int[] nums) {
         LinkedList<List<Integer>> ans = new LinkedList<>();
@@ -172,7 +212,13 @@ class offer {
 
     /**
      * 剑指 Offer II 008. 和大于等于 target 的最短子数组
-     */
+     * @param target
+     * @param nums
+     * @return int
+     * @author xoliu
+     * @create 2023/10/16 15:22
+     **/
+
     public int minSubArrayLen(int target, int[] nums) {
         int i = 0, sum = 0, length = 0;
         for (int j = 0; j < nums.length; j++) {
@@ -192,7 +238,13 @@ class offer {
 
     /**
      * 剑指 Offer II 009. 乘积小于 K 的子数组
-     */
+     * @param a
+     * @param k
+     * @return int
+     * @author xoliu
+     * @create 2023/10/16 15:22
+     **/
+
     public int numSubarrayProductLessThanK(int[] a, int k) {
         if (k == 1 || k == 0) {
             return 0;
@@ -213,7 +265,13 @@ class offer {
 
     /**
      * 剑指 Offer II 010. 和为 k 的子数组
-     */
+     * @param nums
+     * @param k
+     * @return int
+     * @author xoliu
+     * @create 2023/10/16 15:21
+     **/
+
     public int subarraySum(int[] nums, int k) {
         int sum = 0, cnt = 0;
         HashMap<Integer, Integer> map = new HashMap<>();
@@ -231,7 +289,12 @@ class offer {
 
     /**
      * 剑指 Offer II 011. 0 和 1 个数相同的子数组
-     */
+     * @param nums
+     * @return int
+     * @author xoliu
+     * @create 2023/10/16 15:21
+     **/
+
     public int findMaxLength(int[] nums) {
         for (int i = 0; i < nums.length; ++i) {
             if (nums[i] == 0) {
@@ -256,7 +319,12 @@ class offer {
 
     /**
      * 剑指 Offer II 012. 左右两边子数组的和相等
-     */
+     * @param nums
+     * @return int
+     * @author xoliu
+     * @create 2023/10/16 15:21
+     **/
+
     public int pivotIndex(int[] nums) {
         int sum = 0;
         for (int i = 0; i < nums.length; ++i) {
@@ -274,7 +342,12 @@ class offer {
 
     /**
      * 剑指 Offer II 013. 二维子矩阵的和
-     */
+     * @param null
+     * @return null
+     * @author xoliu
+     * @create 2023/10/16 15:21
+     **/
+
     class NumMatrix {
         int[][] prefix;
 
@@ -298,7 +371,13 @@ class offer {
 
     /**
      * 剑指 Offer II 014. 字符串中的变位词
-     */
+     * @param s1
+     * @param s2
+     * @return boolean
+     * @author xoliu
+     * @create 2023/10/16 15:21
+     **/
+
     public boolean checkInclusion(String s1, String s2) {
         int n1 = s1.length(), n2 = s2.length();
         if (n1 > n2) {
@@ -352,7 +431,12 @@ class offer {
 
     /**
      * 剑指 Offer II 016. 不含重复字符的最长子字符串
-     */
+     * @param s
+     * @return int
+     * @author xoliu
+     * @create 2023/10/16 15:21
+     **/
+
     public int lengthOfLongestSubstring(String s) {
         HashSet<Character> set = new HashSet<>();
         if (s.length() <= 1) {
@@ -374,7 +458,12 @@ class offer {
 
     /**
      * 剑指 Offer II 018. 有效的回文
-     */
+     * @param s
+     * @return boolean
+     * @author xoliu
+     * @create 2023/10/16 15:21
+     **/
+
     public boolean isPalindrome(String s) {
         s = s.toLowerCase();
         int i = 0, j = s.length() - 1;
@@ -396,7 +485,12 @@ class offer {
 
     /**
      * 剑指 Offer II 019. 最多删除一个字符得到回文
-     */
+     * @param s
+     * @return boolean
+     * @author xoliu
+     * @create 2023/10/16 15:19
+     **/
+
     public boolean validPalindrome(String s) {
         int left = 0, right = s.length() - 1;
         for (; left < s.length() / 2; ++left, --right) {
@@ -423,8 +517,14 @@ class offer {
 
     }
 
+    /**
+     * 剑指 Offer II 020. 回文子字符串的个数
+     * @param s
+     * @return int
+     * @author xoliu
+     * @create 2023/10/16 15:19
+     **/
 
-    /**剑指 Offer II 020. 回文子字符串的个数*/
     public int countSubstrings(String s) {
         int n = s.length();
         boolean[][] dp = new boolean[n][n];
@@ -443,6 +543,32 @@ class offer {
 
 
 
+    /**
+     * LCR 021. 删除链表的倒数第 N 个结点
+     * @param head
+     * @param n
+     * @return ListNode
+     * @author xoliu
+     * @create 2023/10/16 15:17
+     **/
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode front = head;
+        ListNode back = dummy;
+        for (int i = 0; i < n; ++i) {
+            front = front.next;
+        }
+        while (front != null) {
+            front = front.next;
+            back = back.next;
+        }
+        back.next = back.next.next;
+        return dummy.next;
+    }
+
+
 
 
 }
+
