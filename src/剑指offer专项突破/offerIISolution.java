@@ -567,7 +567,108 @@ class offer {
         return dummy.next;
     }
 
+    /**
+     * LCR 023. 相交链表
+     * @param headA
+     * @param headB
+     * @return 数据结构.ListNode
+     * @author xoliu
+     * @create 2023/10/17 11:26
+     **/
 
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+
+        return new ListNode();
+    }
+
+    /**
+     * LCR 024. 反转链表
+     * @param head
+     * @return 数据结构.ListNode
+     * @author xoliu
+     * @create 2023/10/17 11:32
+     **/
+
+    public ListNode reverseList(ListNode head) {
+        if (head == null || head.next == null){
+            return head;
+        }
+        ListNode newNode = reverseList(head.next);
+        head.next.next = head;
+        head.next = null;
+        return newNode;
+    }
+    /**
+     * LCR 025. 两数相加 II
+     * @param l1
+     * @param l2
+     * @return 数据结构.ListNode
+     * @author xoliu
+     * @create 2023/10/17 11:38
+     **/
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode n1 = reverseList(l1);
+        ListNode n2 = reverseList(l2);
+        ListNode res = new ListNode(0);
+        ListNode head = res;
+        int carry = 0;
+        int temp = 0;
+        while(n1 != null || n2 != null){
+            int sum = carry;
+            if (n1 != null) {
+                sum += n1.val;
+                n1 = n1.next;
+            }
+            if (n2 != null) {
+                sum += n2.val;
+                n2 = n2.next;
+            }
+
+            ListNode newNode = new ListNode(sum % 10);
+            carry = sum / 10;
+            res.next = newNode;
+            res = res.next;
+            if (n1 == null && n2 == null){
+                temp = sum;
+            }
+        }
+        if (temp >= 10){
+            temp /= 10;
+            while(temp != 0){
+                res.next = new ListNode(temp % 10);
+                res = res.next;
+                temp /= 10;
+            }
+        }
+
+        return reverseList(head.next);
+    }
+
+    /**
+     * LCR 026. 重排链表
+     * @param head
+     * @return void
+     * @author xoliu
+     * @create 2023/10/18 12:18
+     **/
+    public void reorderList(ListNode head) {
+        ListNode slow = head, fast = slow;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode mid = reverseList(slow);
+        ListNode p = head;
+        while(p != null && p.next != mid){
+            ListNode temp1 = p.next;
+            ListNode temp2 = mid.next;
+            p.next = mid;
+            mid.next = temp1;
+            p = temp1;
+            mid = temp2;
+        }
+    }
 
 
 }
