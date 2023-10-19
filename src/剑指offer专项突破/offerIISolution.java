@@ -4,6 +4,7 @@ package 剑指offer专项突破;
 
 
 
+import 数据结构.Node;
 import 数据结构.ListNode;
 
 import java.util.*;
@@ -671,5 +672,41 @@ class offer {
     }
 
 
+    /**
+     * LCR 028. 扁平化多级双向链表
+     * @param head
+     * @return 数据结构.Node
+     * @author xoliu
+     * @create 2023/10/19 12:23
+     **/
+    public Node flatten(Node head) {
+        flatHelper(head);
+        return head;
+    }
+    public Node flatHelper(Node head){
+        Node node = head;//移动指针
+        Node tempEnd = null;
+        while (node != null){
+            Node next = node.next;//用于连接
+            if (node.child != null){
+                Node childNode = node.child;
+                Node childEnd = flatHelper(node.child);
+                node.child = null;//置空
+                node.next = childNode;
+                childNode.prev = node;
+                childEnd.next = next;
+                if (next != null) {
+                    next.prev = childEnd;
+                }
+                tempEnd = childEnd;
+            }else{
+                //没有子节点，直接更新tempEnd
+                tempEnd = node;
+            }
+            node = next;
+        }
+        //返回值用来更新子节点的尾结点，所以返回tempEnd
+        return tempEnd;
+    }
 }
 
