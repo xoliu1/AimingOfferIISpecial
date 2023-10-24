@@ -708,5 +708,73 @@ class offer {
         //返回值用来更新子节点的尾结点，所以返回tempEnd
         return tempEnd;
     }
+
+    /**
+     * LCR 62 实现 Trie (前缀树)
+     * @param null
+     * @return null
+     * @author xoliu
+     * @create 2023/10/23 12:47
+     **/
+
+    class Trie {
+        TrieNode root;
+        class TrieNode{
+            char val;
+            boolean isEnd = false;
+            TrieNode[] children;
+
+            public TrieNode() {
+                this.children = new TrieNode[26];
+            }
+
+            public TrieNode(char val) {
+                this.val = val;
+                this.children = new TrieNode[26];
+            }
+        }
+        public Trie() {
+            root = new TrieNode();
+        }
+
+        public void insert(String word) {
+            TrieNode p = root;
+            for (int i = 0; i < word.length(); ++i) {
+                char ch = word.charAt(i);
+                if (p.children[ch - 'a'] == null){
+                    p.children[ch - 'a'] = new TrieNode(ch);
+                }
+                p = p.children[ch - 'a'];
+                if (i == word.length() - 1){
+                    p.isEnd = true;
+                }
+            }
+        }
+
+        public boolean search(String word) {
+            TrieNode p = root;
+            for (int i = 0; i < word.length(); ++i) {
+                char ch = word.charAt(i);
+                if(p.children[ch - 'a'] == null){
+                    return false;
+                }
+                p = p.children[ch - 'a'];
+            }
+            return p.isEnd;
+        }
+
+        public boolean startsWith(String prefix) {
+            TrieNode p = root;
+            for (int i = 0; i < prefix.length(); ++i) {
+                char ch = prefix.charAt(i);
+                if(p.children[ch - 'a'] == null){
+                    return false;
+                }
+                p = p.children[ch - 'a'];
+            }
+            return true;
+        }
+    }
+    
 }
 
