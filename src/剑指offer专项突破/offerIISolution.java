@@ -6,7 +6,7 @@ package 剑指offer专项突破;
 
 import 数据结构.Node;
 import 数据结构.ListNode;
-
+import 数据结构.TreeNode;
 import java.util.*;
 
 
@@ -709,6 +709,93 @@ class offer {
         return tempEnd;
     }
 
+
+    /**
+     * LCR 046. 二叉树的右视图
+     * @param root
+     * @return List<Int>
+     * @author xoliu
+     * @create 2023/10/27 23:44
+     **/
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        if (root == null) {
+            return ans;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; ++i) {
+                TreeNode p = queue.poll();
+                if (p.left != null) {
+                    queue.offer(p.left);
+                }
+                if (p.right != null) {
+                    queue.offer(p.right);
+                }
+                if (i == size - 1) {
+                    ans.add(p.val);
+                }
+            }
+        }
+        return ans;
+    }
+
+
+    
+
+
+    /**
+     * LCR 050. 路径总和 III
+     * @param root
+     * @param targetSum
+     * @return int
+     * @author xoliu
+     * @create 2023/10/27 23:45
+     **/
+    int pathNum;
+    public int pathSum(TreeNode root, int targetSum) {
+        if(root == null){return 0;}
+        getSum(root, targetSum, 0);
+        pathSum(root.left, targetSum);
+        pathSum(root.right, targetSum);
+        return pathNum;
+    }
+    public void getSum(TreeNode root, int targetSum, long sum){
+        if(root == null){return ;}
+        sum += root.val;
+        if(sum == targetSum){
+            ++pathNum;
+        }
+        getSum(root.left, targetSum, sum);
+        getSum(root.right, targetSum, sum);
+        sum -= root.val;
+    }
+
+    
+
+    /**
+     * LCR 051. 二叉树中的最大路径和
+     * @param root
+     * @return int
+     * @author xoliu
+     * @create 2023/10/27 23:46
+     **/
+    int mx = Integer.MIN_VALUE;
+    public int maxPathSum(TreeNode root) {
+        dfs(root);
+        return mx;
+    }
+    public int dfs(TreeNode root){
+        if(root == null){
+            return 0;
+        }
+        int left = Math.max(0, dfs(root.left));
+        int right = Math.max(0, dfs(root.right));
+        mx = Math.max(mx, root.val + left + right);
+        return root.val + Math.max(left, right);
+    }
     /**
      * LCR 62 实现 Trie (前缀树)
      * @param null
