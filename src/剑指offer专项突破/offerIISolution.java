@@ -862,6 +862,38 @@ class offer {
             return true;
         }
     }
+
+    /**
+     *LCR 074. 合并区间
+     * @param intervals
+     * @return int[][]
+     * @author xoliu
+     * @create 2023/11/02 0:17
+     **/
+    public int[][] merge(int[][] intervals) {
+        if(intervals.length == 0){
+            return new int[0][2];
+        }
+        Arrays.sort(intervals, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o1[0] - o2[0];
+            }
+        });//按照左端点排序
+        List<int[]> ans = new ArrayList<>();
+        ans.add(intervals[0]);
+        for (int i = 1; i < intervals.length; ++i) {
+            int l = intervals[i][0], r = intervals[i][1];
+            if(ans.get(ans.size() - 1)[1] < l){
+                ans.add(intervals[i]);
+            }else{
+                ans.get(ans.size() - 1)[1] = Math.max(ans.get(ans.size() - 1)[1],r);
+            }
+        }
+        return ans.toArray(new int[ans.size()][2]);
+    }
+
+
     
 }
 
