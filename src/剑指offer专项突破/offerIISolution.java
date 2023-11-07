@@ -708,7 +708,38 @@ class offer {
         //返回值用来更新子节点的尾结点，所以返回tempEnd
         return tempEnd;
     }
-
+    
+    /**
+     * LCR 044. 在每个树行中找最大值
+     * @param root
+     * @return java.util.List<java.lang.Integer>
+     * @author xoliu
+     * @create 2023/11/06 15:30
+     **/
+    public List<Integer> largestValues(TreeNode root) {
+        LinkedList<Integer> res = new LinkedList<>();
+        if (root == null){
+            return res;
+        }
+        Queue<TreeNode> que = new LinkedList<>();
+        que.offer(root);
+        while(!que.isEmpty()){
+            int mx = Integer.MIN_VALUE;
+            int size = que.size();
+            while(size-- > 0){
+                TreeNode p = que.poll();
+                mx = Math.max(mx, p.val);
+                if (p.left != null){
+                    que.offer(p.left);
+                }
+                if(p.right != null){
+                    que.offer(p.right);
+                }
+            }
+            res.add(mx);
+        }
+        return res;
+    }
 
     /**
      * LCR 046. 二叉树的右视图
