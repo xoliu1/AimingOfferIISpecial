@@ -578,8 +578,15 @@ class offer {
      **/
 
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-
-        return new ListNode();
+        if (headA == null || headB == null) {
+            return null;
+        }
+        ListNode nodeA = headA, nodeB = headB;
+        while (nodeA != nodeB) {
+            nodeA = nodeA == null ? headB : nodeA.next;
+            nodeB = nodeB == null ? headA : nodeB.next;
+        }
+        return nodeA;
     }
 
     /**
@@ -952,6 +959,28 @@ class offer {
     }
 
 
+    /**
+     * LCR 090. 打家劫舍 II
+     * @param nums
+     * @return int
+     * @author xoliu
+     * @create 2023/11/16 0:20
+     **/
+    public int rob2(int[] nums) {
+        if (nums.length == 1) return nums[0];
+        return Math.max(
+                rob2Helper(Arrays.copyOfRange(nums, 0, nums.length - 1)),
+                rob2Helper(Arrays.copyOfRange(nums, 1, nums.length)));
+    }
+
+    public int rob2Helper(int[] nums) {
+        int n = nums.length;
+        int[] dp = new int[n + 1];
+        dp[1] = nums[0];
+        for (int i = 2; i <= n; i++)
+            dp[i] = Math.max(dp[i - 2] + nums[i - 1], dp[i - 1]);
+        return dp[n];
+    }
     
 }
 
