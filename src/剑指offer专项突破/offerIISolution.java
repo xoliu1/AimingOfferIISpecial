@@ -708,6 +708,33 @@ class offer {
         //返回值用来更新子节点的尾结点，所以返回tempEnd
         return tempEnd;
     }
+
+
+
+
+    /**
+     * LCR 039. 柱状图中最大的矩形
+     * @param heights
+     * @return int
+     * @author xoliu
+     * @create 2023/11/09 18:13
+     **/
+    public int largestRectangleArea(int[] heights) {
+        int n = heights.length;
+        int[] tmp = new int[n + 2];
+        System.arraycopy(heights, 0, tmp, 1, n);
+        LinkedList<Integer> queue = new LinkedList<>();
+        int res = 0;
+        for (int i = 0;i < n + 2; ++i) {
+            while(!queue.isEmpty() && tmp[queue.peekFirst()] > tmp[i]){
+                Integer idx = queue.pollFirst();
+                res = Math.max(res, (i - queue.peekFirst() - 1) * tmp[idx]);
+            }
+            queue.offerFirst(i);
+        }
+        return res;
+    }
+    
     
     /**
      * LCR 044. 在每个树行中找最大值
