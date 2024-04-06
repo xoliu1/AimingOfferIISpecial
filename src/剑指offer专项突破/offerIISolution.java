@@ -1,18 +1,17 @@
 package 剑指offer专项突破;
 
 
-
-
-
-import 数据结构.Node;
 import 数据结构.ListNode;
+import 数据结构.Node;
 import 数据结构.TreeNode;
+
 import java.util.*;
 
 
 class offer {
     /**
      * 剑指 Offer II 001. 整数除法
+     *
      * @param dividend
      * @param divisor
      * @return int
@@ -44,6 +43,7 @@ class offer {
 
     /**
      * 剑指 Offer II 002. 二进制加法
+     *
      * @param a
      * @param b
      * @return java.lang.String
@@ -71,6 +71,7 @@ class offer {
 
     /**
      * 剑指 Offer II 003. 前 n 个数字二进制中 1 的个数
+     *
      * @param n
      * @return int[]
      * @author xoliu
@@ -91,6 +92,7 @@ class offer {
 
     /**
      * 剑指 Offer II 004. 只出现一次的数字
+     *
      * @param nums
      * @return int
      * @author xoliu
@@ -113,6 +115,7 @@ class offer {
 
     /**
      * 剑指 Offer II 005. 单词长度的最大乘积
+     *
      * @param words
      * @return int
      * @author xoliu
@@ -147,6 +150,7 @@ class offer {
 
     /**
      * 剑指 Offer II 006. 排序数组中两个数字之和
+     *
      * @param numbers
      * @param target
      * @return int[]
@@ -170,6 +174,7 @@ class offer {
 
     /**
      * 剑指 Offer II 007. 数组中和为 0 的三个数
+     *
      * @param nums
      * @return java.util.List<java.util.List < java.lang.Integer>>
      * @author xoliu
@@ -213,6 +218,7 @@ class offer {
 
     /**
      * 剑指 Offer II 008. 和大于等于 target 的最短子数组
+     *
      * @param target
      * @param nums
      * @return int
@@ -239,6 +245,7 @@ class offer {
 
     /**
      * 剑指 Offer II 009. 乘积小于 K 的子数组
+     *
      * @param a
      * @param k
      * @return int
@@ -266,6 +273,7 @@ class offer {
 
     /**
      * 剑指 Offer II 010. 和为 k 的子数组
+     *
      * @param nums
      * @param k
      * @return int
@@ -290,6 +298,7 @@ class offer {
 
     /**
      * 剑指 Offer II 011. 0 和 1 个数相同的子数组
+     *
      * @param nums
      * @return int
      * @author xoliu
@@ -320,6 +329,7 @@ class offer {
 
     /**
      * 剑指 Offer II 012. 左右两边子数组的和相等
+     *
      * @param nums
      * @return int
      * @author xoliu
@@ -343,9 +353,10 @@ class offer {
 
     /**
      * 剑指 Offer II 013. 二维子矩阵的和
+     *
      * @param null
-     * @return null
      * @author xoliu
+     * @return null
      * @create 2023/10/16 15:21
      **/
 
@@ -372,6 +383,7 @@ class offer {
 
     /**
      * 剑指 Offer II 014. 字符串中的变位词
+     *
      * @param s1
      * @param s2
      * @return boolean
@@ -432,6 +444,7 @@ class offer {
 
     /**
      * 剑指 Offer II 016. 不含重复字符的最长子字符串
+     *
      * @param s
      * @return int
      * @author xoliu
@@ -459,6 +472,7 @@ class offer {
 
     /**
      * 剑指 Offer II 018. 有效的回文
+     *
      * @param s
      * @return boolean
      * @author xoliu
@@ -486,6 +500,7 @@ class offer {
 
     /**
      * 剑指 Offer II 019. 最多删除一个字符得到回文
+     *
      * @param s
      * @return boolean
      * @author xoliu
@@ -520,6 +535,7 @@ class offer {
 
     /**
      * 剑指 Offer II 020. 回文子字符串的个数
+     *
      * @param s
      * @return int
      * @author xoliu
@@ -533,7 +549,7 @@ class offer {
         int res = 0;
         for (int i = n - 1; i >= 0; --i) {
             for (int j = i; j < n; ++j) {
-                if (s.charAt(i) == s.charAt(j) && (i == j || i == j - 1 || dp[i + 1][j - 1])){
+                if (s.charAt(i) == s.charAt(j) && (i == j || i == j - 1 || dp[i + 1][j - 1])) {
                     dp[i][j] = true;
                     ++res;
                 }
@@ -543,9 +559,9 @@ class offer {
     }
 
 
-
     /**
      * LCR 021. 删除链表的倒数第 N 个结点
+     *
      * @param head
      * @param n
      * @return ListNode
@@ -570,6 +586,7 @@ class offer {
 
     /**
      * LCR 023. 相交链表
+     *
      * @param headA
      * @param headB
      * @return 数据结构.ListNode
@@ -591,6 +608,7 @@ class offer {
 
     /**
      * LCR 024. 反转链表
+     *
      * @param head
      * @return 数据结构.ListNode
      * @author xoliu
@@ -598,7 +616,7 @@ class offer {
      **/
 
     public ListNode reverseList(ListNode head) {
-        if (head == null || head.next == null){
+        if (head == null || head.next == null) {
             return head;
         }
         ListNode newNode = reverseList(head.next);
@@ -606,8 +624,10 @@ class offer {
         head.next = null;
         return newNode;
     }
+
     /**
      * LCR 025. 两数相加 II
+     *
      * @param l1
      * @param l2
      * @return 数据结构.ListNode
@@ -622,7 +642,7 @@ class offer {
         ListNode head = res;
         int carry = 0;
         int temp = 0;
-        while(n1 != null || n2 != null){
+        while (n1 != null || n2 != null) {
             int sum = carry;
             if (n1 != null) {
                 sum += n1.val;
@@ -637,13 +657,13 @@ class offer {
             carry = sum / 10;
             res.next = newNode;
             res = res.next;
-            if (n1 == null && n2 == null){
+            if (n1 == null && n2 == null) {
                 temp = sum;
             }
         }
-        if (temp >= 10){
+        if (temp >= 10) {
             temp /= 10;
-            while(temp != 0){
+            while (temp != 0) {
                 res.next = new ListNode(temp % 10);
                 res = res.next;
                 temp /= 10;
@@ -655,6 +675,7 @@ class offer {
 
     /**
      * LCR 026. 重排链表
+     *
      * @param head
      * @return void
      * @author xoliu
@@ -662,13 +683,13 @@ class offer {
      **/
     public void reorderList(ListNode head) {
         ListNode slow = head, fast = slow;
-        while(fast != null && fast.next != null){
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
         ListNode mid = reverseList(slow);
         ListNode p = head;
-        while(p != null && p.next != mid){
+        while (p != null && p.next != mid) {
             ListNode temp1 = p.next;
             ListNode temp2 = mid.next;
             p.next = mid;
@@ -680,7 +701,35 @@ class offer {
 
 
     /**
+     * LCR 027. 回文链表
+     *
+     * @param head
+     * @return boolean
+     * @author xoliu
+     * @create 2024/04/06 15:53
+     **/
+    public boolean isPalindrome(ListNode head) {
+        if (head == null) return false;
+        Deque<ListNode> stack = new ArrayDeque<>();
+        ListNode cur = head;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.next;
+        }
+        while (head != null) {
+            if (head.val != stack.pop().val) {
+                return false;
+            }
+            head = head.next;
+        }
+        return true;
+
+    }
+
+
+    /**
      * LCR 028. 扁平化多级双向链表
+     *
      * @param head
      * @return 数据结构.Node
      * @author xoliu
@@ -690,12 +739,13 @@ class offer {
         flatHelper(head);
         return head;
     }
-    public Node flatHelper(Node head){
+
+    public Node flatHelper(Node head) {
         Node node = head;//移动指针
         Node tempEnd = null;
-        while (node != null){
+        while (node != null) {
             Node next = node.next;//用于连接
-            if (node.child != null){
+            if (node.child != null) {
                 Node childNode = node.child;
                 Node childEnd = flatHelper(node.child);
                 node.child = null;//置空
@@ -706,7 +756,7 @@ class offer {
                     next.prev = childEnd;
                 }
                 tempEnd = childEnd;
-            }else{
+            } else {
                 //没有子节点，直接更新tempEnd
                 tempEnd = node;
             }
@@ -716,11 +766,46 @@ class offer {
         return tempEnd;
     }
 
+    /**
+     * LCR 029. 循环有序列表的插入
+     *
+     * @param head
+     * @param insertVal
+     * @return 数据结构.Node
+     * @author xoliu
+     * @create 2024/04/06 16:13
+     **/
+    public Node insert(Node head, int insertVal) {
+        if (head == null) {
+            Node node = new Node(insertVal);
+            node.next = node;
+            return node;
+        }
+        Node max = head, min = head;
+        Node p = head.next;
+        while (p != head) {
+            if (p.val > max.val) max = p;
+            if (p.val < min.val) min = p;
+            p = p.next;
+        }
+        if (max == min) {
+            max.next = new Node(insertVal, max.next);
+        } else if (insertVal >= max.val || insertVal <= min.val) {
+            while (max.next.val == max.val) max = max.next;
+            max.next = new Node(insertVal, max.next);
+        } else {
+            while (min.next.val < insertVal) min = min.next;
+            min.next = new Node(insertVal, min.next);
+        }
+        return head;
+    }
+
 
     /**
      * LCR 033. 字母异位词分组
+     *
      * @param strs
-     * @return List<List<String>>
+     * @return List<List < String>>
      * @author xoliu
      * @create 2023/11/16 22:29
      **/
@@ -738,9 +823,9 @@ class offer {
     }
 
 
-
     /**
      * LCR 039. 柱状图中最大的矩形
+     *
      * @param heights
      * @return int
      * @author xoliu
@@ -752,8 +837,8 @@ class offer {
         System.arraycopy(heights, 0, tmp, 1, n);
         LinkedList<Integer> queue = new LinkedList<>();
         int res = 0;
-        for (int i = 0;i < n + 2; ++i) {
-            while(!queue.isEmpty() && tmp[queue.peekFirst()] > tmp[i]){
+        for (int i = 0; i < n + 2; ++i) {
+            while (!queue.isEmpty() && tmp[queue.peekFirst()] > tmp[i]) {
                 Integer idx = queue.pollFirst();
                 res = Math.max(res, (i - queue.peekFirst() - 1) * tmp[idx]);
             }
@@ -761,10 +846,11 @@ class offer {
         }
         return res;
     }
-    
-    
+
+
     /**
      * LCR 044. 在每个树行中找最大值
+     *
      * @param root
      * @return java.util.List<java.lang.Integer>
      * @author xoliu
@@ -772,21 +858,21 @@ class offer {
      **/
     public List<Integer> largestValues(TreeNode root) {
         LinkedList<Integer> res = new LinkedList<>();
-        if (root == null){
+        if (root == null) {
             return res;
         }
         Queue<TreeNode> que = new LinkedList<>();
         que.offer(root);
-        while(!que.isEmpty()){
+        while (!que.isEmpty()) {
             int mx = Integer.MIN_VALUE;
             int size = que.size();
-            while(size-- > 0){
+            while (size-- > 0) {
                 TreeNode p = que.poll();
                 mx = Math.max(mx, p.val);
-                if (p.left != null){
+                if (p.left != null) {
                     que.offer(p.left);
                 }
-                if(p.right != null){
+                if (p.right != null) {
                     que.offer(p.right);
                 }
             }
@@ -797,6 +883,7 @@ class offer {
 
     /**
      * LCR 046. 二叉树的右视图
+     *
      * @param root
      * @return List<Int>
      * @author xoliu
@@ -828,11 +915,9 @@ class offer {
     }
 
 
-    
-
-
     /**
      * LCR 050. 路径总和 III
+     *
      * @param root
      * @param targetSum
      * @return int
@@ -840,17 +925,23 @@ class offer {
      * @create 2023/10/27 23:45
      **/
     int pathNum;
+
     public int pathSum(TreeNode root, int targetSum) {
-        if(root == null){return 0;}
+        if (root == null) {
+            return 0;
+        }
         getSum(root, targetSum, 0);
         pathSum(root.left, targetSum);
         pathSum(root.right, targetSum);
         return pathNum;
     }
-    public void getSum(TreeNode root, int targetSum, long sum){
-        if(root == null){return ;}
+
+    public void getSum(TreeNode root, int targetSum, long sum) {
+        if (root == null) {
+            return;
+        }
         sum += root.val;
-        if(sum == targetSum){
+        if (sum == targetSum) {
             ++pathNum;
         }
         getSum(root.left, targetSum, sum);
@@ -858,22 +949,24 @@ class offer {
         sum -= root.val;
     }
 
-    
 
     /**
      * LCR 051. 二叉树中的最大路径和
+     *
      * @param root
      * @return int
      * @author xoliu
      * @create 2023/10/27 23:46
      **/
     int mx = Integer.MIN_VALUE;
+
     public int maxPathSum(TreeNode root) {
         dfs(root);
         return mx;
     }
-    public int dfs(TreeNode root){
-        if(root == null){
+
+    public int dfs(TreeNode root) {
+        if (root == null) {
             return 0;
         }
         int left = Math.max(0, dfs(root.left));
@@ -881,17 +974,20 @@ class offer {
         mx = Math.max(mx, root.val + left + right);
         return root.val + Math.max(left, right);
     }
+
     /**
      * LCR 62 实现 Trie (前缀树)
+     *
      * @param null
-     * @return null
      * @author xoliu
+     * @return null
      * @create 2023/10/23 12:47
      **/
 
     class Trie {
         TrieNode root;
-        class TrieNode{
+
+        class TrieNode {
             char val;
             boolean isEnd = false;
             TrieNode[] children;
@@ -905,6 +1001,7 @@ class offer {
                 this.children = new TrieNode[26];
             }
         }
+
         public Trie() {
             root = new TrieNode();
         }
@@ -913,11 +1010,11 @@ class offer {
             TrieNode p = root;
             for (int i = 0; i < word.length(); ++i) {
                 char ch = word.charAt(i);
-                if (p.children[ch - 'a'] == null){
+                if (p.children[ch - 'a'] == null) {
                     p.children[ch - 'a'] = new TrieNode(ch);
                 }
                 p = p.children[ch - 'a'];
-                if (i == word.length() - 1){
+                if (i == word.length() - 1) {
                     p.isEnd = true;
                 }
             }
@@ -927,7 +1024,7 @@ class offer {
             TrieNode p = root;
             for (int i = 0; i < word.length(); ++i) {
                 char ch = word.charAt(i);
-                if(p.children[ch - 'a'] == null){
+                if (p.children[ch - 'a'] == null) {
                     return false;
                 }
                 p = p.children[ch - 'a'];
@@ -939,7 +1036,7 @@ class offer {
             TrieNode p = root;
             for (int i = 0; i < prefix.length(); ++i) {
                 char ch = prefix.charAt(i);
-                if(p.children[ch - 'a'] == null){
+                if (p.children[ch - 'a'] == null) {
                     return false;
                 }
                 p = p.children[ch - 'a'];
@@ -949,14 +1046,15 @@ class offer {
     }
 
     /**
-     *LCR 074. 合并区间
+     * LCR 074. 合并区间
+     *
      * @param intervals
      * @return int[][]
      * @author xoliu
      * @create 2023/11/02 0:17
      **/
     public int[][] merge(int[][] intervals) {
-        if(intervals.length == 0){
+        if (intervals.length == 0) {
             return new int[0][2];
         }
         Arrays.sort(intervals, new Comparator<int[]>() {
@@ -969,10 +1067,10 @@ class offer {
         ans.add(intervals[0]);
         for (int i = 1; i < intervals.length; ++i) {
             int l = intervals[i][0], r = intervals[i][1];
-            if(ans.get(ans.size() - 1)[1] < l){
+            if (ans.get(ans.size() - 1)[1] < l) {
                 ans.add(intervals[i]);
-            }else{
-                ans.get(ans.size() - 1)[1] = Math.max(ans.get(ans.size() - 1)[1],r);
+            } else {
+                ans.get(ans.size() - 1)[1] = Math.max(ans.get(ans.size() - 1)[1], r);
             }
         }
         return ans.toArray(new int[ans.size()][2]);
@@ -981,6 +1079,7 @@ class offer {
 
     /**
      * LCR 090. 打家劫舍 II
+     *
      * @param nums
      * @return int
      * @author xoliu
@@ -1001,6 +1100,6 @@ class offer {
             dp[i] = Math.max(dp[i - 2] + nums[i - 1], dp[i - 1]);
         return dp[n];
     }
-    
+
 }
 
