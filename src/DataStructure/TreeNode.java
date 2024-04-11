@@ -1,4 +1,4 @@
-package 数据结构;
+package DataStructure;
 
 public class TreeNode {
     public int val;

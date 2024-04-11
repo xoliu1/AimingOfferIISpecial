@@ -1,9 +1,9 @@
 package 剑指offer专项突破;
 
 
-import 数据结构.ListNode;
-import 数据结构.Node;
-import 数据结构.TreeNode;
+import DataStructure.ListNode;
+import DataStructure.Node;
+import DataStructure.TreeNode;
 
 import java.util.*;
 
@@ -589,7 +589,7 @@ class offer {
      *
      * @param headA
      * @param headB
-     * @return 数据结构.ListNode
+     * @return DataStructure.ListNode
      * @author xoliu
      * @create 2023/10/17 11:26
      **/
@@ -610,7 +610,7 @@ class offer {
      * LCR 024. 反转链表
      *
      * @param head
-     * @return 数据结构.ListNode
+     * @return DataStructure.ListNode
      * @author xoliu
      * @create 2023/10/17 11:32
      **/
@@ -630,7 +630,7 @@ class offer {
      *
      * @param l1
      * @param l2
-     * @return 数据结构.ListNode
+     * @return DataStructure.ListNode
      * @author xoliu
      * @create 2023/10/17 11:38
      **/
@@ -731,7 +731,7 @@ class offer {
      * LCR 028. 扁平化多级双向链表
      *
      * @param head
-     * @return 数据结构.Node
+     * @return DataStructure.Node
      * @author xoliu
      * @create 2023/10/19 12:23
      **/
@@ -771,7 +771,7 @@ class offer {
      *
      * @param head
      * @param insertVal
-     * @return 数据结构.Node
+     * @return DataStructure.Node
      * @author xoliu
      * @create 2024/04/06 16:13
      **/
@@ -823,6 +823,115 @@ class offer {
     }
 
 
+    /**
+     * LCR 034. 验证外星语词典
+     * @param words
+     * @param order
+     * @return boolean
+     * @author xoliu
+     * @create 2024/04/11 下午5:50
+     **/
+    public boolean isAlienSorted(String[] words, String order) {
+        int[] tong = new int[order.length()];
+        for (int i = 0; i < order.length(); ++i) {
+            tong[order.charAt(i) - 'a'] = i;
+        }
+        for (int i = 0; i < words.length - 1; ++i) {
+            if (!cmpTo(words[i], words[i + 1], tong)){
+                return false;
+            }
+        }
+        return true;
+    }
+    private boolean cmpTo(String a, String b, int[] tong) {
+        int i = 0;
+        for (; i < a.length() && i < b.length(); ++i) {
+            char ch1 = a.charAt(i);
+            char ch2 = b.charAt(i);
+            if (ch1 != ch2) {
+                if (tong[ch1 - 'a'] > tong[ch2 - 'a']) {
+                    return false;
+                }
+                if (tong[ch1 - 'a'] < tong[ch2 - 'a']) {
+                    return true;
+                }
+            }
+        }
+        return i == a.length();
+    }
+
+
+    /**
+     * LCR 035. 最小时间差
+     * @param timePoints
+     * @return int
+     * @author xoliu
+     * @create 2024/04/11 下午6:09
+     **/
+    public int findMinDifference(List<String> timePoints) {
+        if (timePoints.size() > 24 * 60) {
+            return 0;
+        }
+        List<Integer> mins = new ArrayList<>();
+        for (String t : timePoints) {
+            String[] time = t.split(":");
+            mins.add(Integer.parseInt(time[0]) * 60 + Integer.parseInt(time[1]));
+        }
+        Collections.sort(mins);
+        mins.add(mins.get(0) + 24 * 60);
+        int res = 24 * 60;
+        for (int i = 1; i < mins.size(); ++i) {
+            res = Math.min(res, mins.get(i) - mins.get(i - 1));
+        }
+        return res;
+    }
+
+
+    /**
+     * LCR 037. 行星碰撞
+     * @param asteroids
+     * @return int[]
+     * @author xoliu
+     * @create 2024/04/11 下午8:34
+     **/
+    public int[] asteroidCollision(int[] asteroids) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        for (int i : asteroids) {
+            if (stack.isEmpty()){
+                stack.offerFirst(i);
+                continue;
+            }
+            boolean bool = true;
+            while(!stack.isEmpty() && bool){
+                int a = stack.peekFirst();
+                if (a * i > 0){
+                    break;
+                }
+                if(a < 0 && i > 0){
+                    break;
+                }
+                if (a == -i && a > 0){
+                    stack.pollFirst();
+                    bool = false;
+                    break;
+                } else if (a > -i){
+                    bool = false;
+                }else{
+                    stack.pollFirst();
+                }
+            }
+            if (bool){
+                stack.offerFirst(i);
+            }
+        }
+        int[] res = new int[stack.size()];
+        int idx = -1;
+        while(!stack.isEmpty()){
+            res[++idx] = stack.pollLast();
+        }
+        return res;
+    }
+    
     /**
      * LCR 039. 柱状图中最大的矩形
      *
