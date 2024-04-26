@@ -825,6 +825,7 @@ class offer {
 
     /**
      * LCR 034. 验证外星语词典
+     *
      * @param words
      * @param order
      * @return boolean
@@ -837,12 +838,13 @@ class offer {
             tong[order.charAt(i) - 'a'] = i;
         }
         for (int i = 0; i < words.length - 1; ++i) {
-            if (!cmpTo(words[i], words[i + 1], tong)){
+            if (!cmpTo(words[i], words[i + 1], tong)) {
                 return false;
             }
         }
         return true;
     }
+
     private boolean cmpTo(String a, String b, int[] tong) {
         int i = 0;
         for (; i < a.length() && i < b.length(); ++i) {
@@ -863,6 +865,7 @@ class offer {
 
     /**
      * LCR 035. 最小时间差
+     *
      * @param timePoints
      * @return int
      * @author xoliu
@@ -886,9 +889,48 @@ class offer {
         return res;
     }
 
+    /**
+     * LCR 036. 逆波兰表达式求值
+     *
+     * @param tokens
+     * @return int
+     * @author xoliu
+     * @create 2024/04/26 下午11:44
+     **/
+
+    public int evalRPN(String[] tokens) {
+        ArrayDeque<Integer> stk = new ArrayDeque<>();
+        for (String token : tokens) {
+            switch (token) {
+                case "+":
+                case "-":
+                case "*":
+                case "/":
+                    int a = stk.pop();
+                    int b = stk.pop();
+                    stk.push(cal(b, a, token));
+                    break;
+                default:
+                    //遇到数字放进去
+                    stk.push(Integer.parseInt(token));
+            }
+        }
+        return stk.pop();
+    }
+
+    private int cal(int a, int b, String token) {
+        switch (token){
+            case "+": return a + b;
+            case "-": return a - b;
+            case "*": return a * b;
+            case "/": return a / b;
+            default: return 0;
+        }
+    }
 
     /**
      * LCR 037. 行星碰撞
+     *
      * @param asteroids
      * @return int[]
      * @author xoliu
@@ -897,41 +939,41 @@ class offer {
     public int[] asteroidCollision(int[] asteroids) {
         Deque<Integer> stack = new ArrayDeque<>();
         for (int i : asteroids) {
-            if (stack.isEmpty()){
+            if (stack.isEmpty()) {
                 stack.offerFirst(i);
                 continue;
             }
             boolean bool = true;
-            while(!stack.isEmpty() && bool){
+            while (!stack.isEmpty() && bool) {
                 int a = stack.peekFirst();
-                if (a * i > 0){
+                if (a * i > 0) {
                     break;
                 }
-                if(a < 0 && i > 0){
+                if (a < 0 && i > 0) {
                     break;
                 }
-                if (a == -i && a > 0){
+                if (a == -i && a > 0) {
                     stack.pollFirst();
                     bool = false;
                     break;
-                } else if (a > -i){
+                } else if (a > -i) {
                     bool = false;
-                }else{
+                } else {
                     stack.pollFirst();
                 }
             }
-            if (bool){
+            if (bool) {
                 stack.offerFirst(i);
             }
         }
         int[] res = new int[stack.size()];
         int idx = -1;
-        while(!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             res[++idx] = stack.pollLast();
         }
         return res;
     }
-    
+
     /**
      * LCR 039. 柱状图中最大的矩形
      *
@@ -956,6 +998,31 @@ class offer {
         return res;
     }
 
+    /**
+     * LCR 040. 最大矩形
+     * @param matrix
+     * @return int
+     * @author xoliu
+     * @create 2024/04/27 上午12:06
+     **/
+    public int maximalRectangle(String[] matrix) {
+        if (matrix == null || matrix.length == 0) {return 0;}
+        int res = 0;
+        int[] heights = new int[matrix[0].length()];//表示以当前行为底，最大的直方图矩形
+        for (String row : matrix) {
+            for (int i = 0; i < row.length(); ++i) {
+                char ch = row.charAt(i);
+                if (ch == '0') {
+                    heights[i] = 0;
+                    //为0则断
+                }else{
+                    ++heights[i];
+                }
+            }
+            res = Math.max(res, largestRectangleArea(heights));
+        }
+        return res;
+    }
 
     /**
      * LCR 044. 在每个树行中找最大值
