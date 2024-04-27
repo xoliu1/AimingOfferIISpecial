@@ -1025,6 +1025,79 @@ class offer {
     }
 
     /**
+     * LCR 041. 数据流中的移动平均值
+     * @param null
+     * @return null
+     * @author xoliu
+     * @create 2024/04/28 上午12:21
+     **/
+
+    class MovingAverage {
+        int len;
+        double sum = 0;
+        LinkedList<Integer> list;
+
+        public MovingAverage(int size) {
+            list = new LinkedList<>();
+            len = size;
+        }
+
+        public double next(int val) {
+            list.add(val);
+            sum += val;
+            while(list.size() > len){
+                sum -= list.removeFirst();
+            }
+            return sum / list.size();
+        }
+    }
+
+
+    /**
+     * LCR 043. 完全二叉树插入器
+     * @param null
+     * @return null
+     * @author xoliu
+     * @create 2024/04/28 上午12:34
+     **/
+    class CBTInserter {
+        //在完全二叉树中添加节点时，需要按照广度优先搜索的顺序找出第1个缺少子节点的节点。
+
+        private Queue<TreeNode> nodeQueue;
+        private TreeNode root;
+        public CBTInserter(TreeNode root) {
+            this.root = root;
+            nodeQueue = new LinkedList<>();
+            nodeQueue.offer(root);
+            //广度搜索留下缺少子节点的节点
+            while (nodeQueue.peek().left != null && nodeQueue.peek().right != null) {
+                TreeNode pollNode = nodeQueue.poll();
+                nodeQueue.offer(pollNode.left);
+                nodeQueue.offer(pollNode.right);
+            }
+        }
+
+        public int insert(int v) {
+            TreeNode node = new TreeNode(v);
+            //第一个缺少子节点的节点
+            TreeNode parent = nodeQueue.peek();
+            if (parent.left == null) {
+                parent.left = node;
+            } else{
+                nodeQueue.poll();
+                parent.right = node;
+                nodeQueue.offer(parent.left);
+                nodeQueue.offer(parent.right);
+            }
+            return parent.val;
+        }
+
+        public TreeNode get_root() {
+            return root;
+        }
+    }
+
+    /**
      * LCR 044. 在每个树行中找最大值
      *
      * @param root
