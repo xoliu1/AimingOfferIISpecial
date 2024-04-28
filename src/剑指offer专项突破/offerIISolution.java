@@ -1032,6 +1032,7 @@ class offer {
      * @create 2024/04/28 上午12:21
      **/
 
+
     class MovingAverage {
         int len;
         double sum = 0;
@@ -1052,6 +1053,28 @@ class offer {
         }
     }
 
+    /**
+     * LCR 042. 最近的请求次数
+     * @param null
+     * @return null
+     * @author xoliu
+     * @create 2024/04/28 下午10:55
+     **/
+    class RecentCounter {
+
+        private Queue<Integer> queue;
+        public RecentCounter() {
+            queue = new LinkedList<>();
+        }
+
+        public int ping(int t) {
+            queue.offer(t);
+            while (queue.peek() + 3000 < t){
+                queue.poll();
+            }
+            return queue.size();
+        }
+    }
 
     /**
      * LCR 043. 完全二叉树插入器
@@ -1126,6 +1149,56 @@ class offer {
                 }
             }
             res.add(mx);
+        }
+        return res;
+    }
+
+    /**
+     * LCR 045. 找树左下角的值
+     * @param root
+     * @return int
+     * @author xoliu
+     * @create 2024/04/28 下午11:07
+     **/
+    public int findBottomLeftValue(TreeNode root) {
+//        int res = root.val;
+//        LinkedList<TreeNode> queue1 = new LinkedList<>();
+//        LinkedList<TreeNode> queue2 = new LinkedList<>();
+//        queue1.offer(root);
+//        while (!queue1.isEmpty()) {
+//            TreeNode node = queue1.poll();
+//            if (node.left != null) {
+//                queue2.offer(node.left);
+//            }
+//            if (node.right != null) {
+//                queue2.offer(node.right);
+//            }
+//            if (queue1.isEmpty()) {
+//                queue1 = queue2;
+//                queue2 = new LinkedList<>();
+//                if (!queue1.isEmpty()) res = queue1.peek().val;
+//            }
+//        }
+//        return res;
+
+        /**
+         *使用广度优先搜索遍历每一层的节点。在遍历一个节点时，需要先把它的非空右子节点放入队列，
+         * 然后再把它的非空左子节点放入队列，这样才能保证从右到左遍历每一层的节点。
+         * 广度优先搜索所遍历的最后一个节点的值就是最底层最左边节点的值。
+         *
+         **/
+        int res = root.val;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode p = queue.poll();
+            if (p.right != null) {
+                queue.offer(p.right);
+            }
+            if (p.left != null) {
+                queue.offer(p.left);
+            }
+            res = p.val;
         }
         return res;
     }
