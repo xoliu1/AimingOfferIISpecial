@@ -1236,7 +1236,65 @@ class offer {
         return ans;
     }
 
+    /**
+     * LCR 047. 二叉树剪枝
+     * @param root
+     * @return DataStructure.TreeNode
+     * @author xoliu
+     * @create 2024/04/30 上午12:14
+     **/
+    public TreeNode pruneTree(TreeNode root) {
+        if (root == null) return root;
 
+        //后序遍历
+        root.left = pruneTree(root.left);
+        root.right = pruneTree(root.right);
+        if (root.left == null && root.right == null && root.val == 0){
+            return null;
+        }
+        return root;
+    }
+
+
+    /**
+     * LCR 048. 二叉树的序列化与反序列化
+     * @param null
+     * @return null
+     * @author xoliu
+     * @create 2024/04/30 上午12:44
+     **/
+    public class Codec {
+
+        /** 前序遍历 要记录空节点，否则无法对应唯一性 */
+        // Encodes a tree to a single string.
+        public String serialize(TreeNode root) {
+            if (root == null) return "#";//表示空
+            String left = serialize(root.left);
+            String right = serialize(root.right);
+            return String.valueOf(root.val) + "," + left + "," + right;
+        }
+
+        // Decodes your encoded data to tree.
+        public TreeNode deserialize(String data) {
+            String[] nodes = data.split(",");
+            int[] i = {0};
+            return dfs2(nodes, i);
+        }
+        //如果函数dfs的第2个参数i是整数类型，那么即使在函数体内修改i的值，修改之后的值也不能传递给它的调用者。
+        // 但把i定义为整数数组之后，可以修改整数数组中的数字，修改之后的数值就能传给它的调用者
+
+        private TreeNode dfs2(String[] nodes, int[] i) {
+            String s = nodes[i[0]];
+            ++i[0];
+            if (s.equals("#")) {
+                return null;
+            }
+            TreeNode node = new TreeNode(Integer.parseInt(s));
+            node.left = dfs2(nodes, i);
+            node.right = dfs2(nodes, i);
+            return node;
+        }
+    }
     /**
      * LCR 050. 路径总和 III
      *
@@ -1246,7 +1304,7 @@ class offer {
      * @author xoliu
      * @create 2023/10/27 23:45
      **/
-    int pathNum;
+    private int pathNum;
 
     public int pathSum(TreeNode root, int targetSum) {
         if (root == null) {
@@ -1281,18 +1339,17 @@ class offer {
      * @create 2023/10/27 23:46
      **/
     int mx = Integer.MIN_VALUE;
-
     public int maxPathSum(TreeNode root) {
-        dfs(root);
+        dfs1(root);
         return mx;
     }
 
-    public int dfs(TreeNode root) {
+    public int dfs1(TreeNode root) {
         if (root == null) {
             return 0;
         }
-        int left = Math.max(0, dfs(root.left));
-        int right = Math.max(0, dfs(root.right));
+        int left = Math.max(0, dfs1(root.left));
+        int right = Math.max(0, dfs1(root.right));
         mx = Math.max(mx, root.val + left + right);
         return root.val + Math.max(left, right);
     }
