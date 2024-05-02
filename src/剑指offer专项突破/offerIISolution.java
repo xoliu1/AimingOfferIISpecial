@@ -1295,6 +1295,27 @@ class offer {
             return node;
         }
     }
+
+    /**
+     * LCR 049. 求根节点到叶节点数字之和
+     * @param root
+     * @return int
+     * @author xoliu
+     * @create 2024/05/02 下午11:59
+     **/
+    public int sumNumbers(TreeNode root) {
+        return sumNumberHelper(root, 0);
+    }
+
+    private int sumNumberHelper(TreeNode node, int res) {
+        if (node == null) return 0;
+        res = res * 10 + node.val;
+        if (node.left == null && node.right == null) {return res;}
+        return sumNumberHelper(node.left, res) + sumNumberHelper(node.right, res);
+    }
+
+
+
     /**
      * LCR 050. 路径总和 III
      *
@@ -1304,7 +1325,7 @@ class offer {
      * @author xoliu
      * @create 2023/10/27 23:45
      **/
-    private int pathNum;
+    private int pathNum1;
 
     public int pathSum(TreeNode root, int targetSum) {
         if (root == null) {
@@ -1313,7 +1334,7 @@ class offer {
         getSum(root, targetSum, 0);
         pathSum(root.left, targetSum);
         pathSum(root.right, targetSum);
-        return pathNum;
+        return pathNum1;
     }
 
     public void getSum(TreeNode root, int targetSum, long sum) {
@@ -1322,12 +1343,13 @@ class offer {
         }
         sum += root.val;
         if (sum == targetSum) {
-            ++pathNum;
+            ++pathNum1;
         }
         getSum(root.left, targetSum, sum);
         getSum(root.right, targetSum, sum);
         sum -= root.val;
     }
+
 
 
     /**
@@ -1344,7 +1366,7 @@ class offer {
         return mx;
     }
 
-    public int dfs1(TreeNode root) {
+    private int dfs1(TreeNode root) {
         if (root == null) {
             return 0;
         }
@@ -1353,6 +1375,31 @@ class offer {
         mx = Math.max(mx, root.val + left + right);
         return root.val + Math.max(left, right);
     }
+
+    
+    /**
+     * LCR 052. 递增顺序搜索树
+     * @param root
+     * @return DataStructure.TreeNode
+     * @author xoliu
+     * @create 2024/05/03 上午12:13
+     **/
+    TreeNode head1 = null, pre1 = null;
+    public TreeNode increasingBST(TreeNode root) {
+        increasingBSTDfs(root);
+        return head1;
+    }
+
+    private void increasingBSTDfs(TreeNode root) {
+        if (root == null) {return;}
+        increasingBSTDfs(root.left);
+        if (pre1 != null) pre1.right = root;
+        else head1 = root;
+        pre1 = root;
+        increasingBSTDfs(root.right);
+        root.left = null;
+    }
+
 
     /**
      * LCR 62 实现 Trie (前缀树)
