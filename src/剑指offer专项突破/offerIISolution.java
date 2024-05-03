@@ -1400,6 +1400,53 @@ class offer {
         root.left = null;
     }
 
+    /**
+     * LCR 053. 二叉搜索树中的中序后继
+     * @param root
+     * @param p
+     * @return DataStructure.TreeNode
+     * @author xoliu
+     * @create 2024/05/04 上午12:12
+     **/
+    public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
+        int aimNum = p.val;
+        TreeNode res = null;
+        while (root != null){
+            if (root.val > aimNum){
+                res = root;
+                root = root.left;
+            }else {
+                root = root.right;
+            }
+        }
+        return res;
+    }
+
+
+    /**
+     * LCR 054. 把二叉搜索树转换为累加树
+     * @param root
+     * @return DataStructure.TreeNode
+     * @author xoliu
+     * @create 2024/05/04 上午12:16
+     **/
+    int pre = 0;
+    public TreeNode convertBST(TreeNode root) {
+        if(root == null){
+            return root;
+        }
+        MidTravel(root);
+        return root;
+    }
+    public void MidTravel(TreeNode root){
+        if (root == null){
+            return;
+        }
+        MidTravel(root.right);
+        pre += root.val;
+        root.val = pre;
+        MidTravel(root.left);
+    }
 
     /**
      * LCR 62 实现 Trie (前缀树)
