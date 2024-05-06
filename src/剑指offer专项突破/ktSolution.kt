@@ -2,6 +2,7 @@ package 剑指offer专项突破
 
 import DataStructure.TreeNode
 import java.util.*
+import kotlin.math.min
 
 
 /**
@@ -129,10 +130,61 @@ class MyCalendar() {
     }
 }
 
+/**
+ * LCR 059. 数据流中的第 K 大元素
+ * @param null
+ * @return null
+ * @author xoliu
+ * @create 2024/05/07 上午1:15
+ **/
+class KthLargest(k: Int, nums: IntArray) {
+    private val minHeap = PriorityQueue<Int>()
+    private val kth: Int = k
 
+    init {
+        for (num in nums) {
+            add(num)
+        }
+    }
 
+    fun add(`val`: Int): Int {
+        minHeap.offer(`val`)
+        if (minHeap.size > kth) {
+            minHeap.poll()
+        }
+        return minHeap.peek()
+    }
+}
 
+/**
+ * LCR 061. 查找和最小的 K 对数字
+ * @param null
+ * @return null
+ * @author xoliu
+ * @create 2024/05/07 上午1:29
+ **/
+fun kSmallestPairs(nums1: IntArray, nums2: IntArray, k: Int): List<List<Int>> {
+    val n = nums1.size
+    val m = nums2.size
+    val ans = ArrayList<List<Int>>(k)
+    val pq = PriorityQueue<IntArray> { a, b -> a[0] - b[0] }
 
+    for (i in 0 until minOf(n, k)) {
+        pq.offer(intArrayOf(nums1[i] + nums2[0], i, 0))
+    }
+
+    while (pq.isNotEmpty() && ans.size < k) {
+        val p = pq.poll()
+        val i = p[1]
+        val j = p[2]
+        ans.add(listOf(nums1[i], nums2[j]))
+        if (j + 1 < m) {
+            pq.offer(intArrayOf(nums1[i] + nums2[j + 1], i, j + 1))
+        }
+    }
+
+    return ans
+}
 
 
 
