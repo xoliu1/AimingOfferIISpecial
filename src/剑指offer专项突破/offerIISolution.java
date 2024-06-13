@@ -1518,6 +1518,70 @@ class offer {
         }
     }
 
+
+    /**
+     * LCR 070. 有序数组中的单一元素
+     * @param nums
+     * @return int
+     * @author xoliu
+     * @create 2024/06/11 下午8:02
+     **/
+
+    public int singleNonDuplicate(int[] nums) {
+        int l = 0, r = nums.length / 2;
+        while(l <= r){
+            int mid = (l + r) / 2;
+            int i = mid * 2;
+            if (i < nums.length - 1 && nums[i] != nums[i + 1]){
+                if (mid == 0 || nums[i - 2] == nums[i - 1]){
+                    return nums[i];
+                }
+                r = mid - 1;
+            }else{
+                l = mid + 1;
+            }
+        }
+        return nums[nums.length - 1];
+    }
+
+
+    /**
+     * LCR 071. 按权重随机选择
+     * @param null
+     * @return null
+     * @author xoliu
+     * @create 2024/06/11 下午8:06
+     **/
+    class Solution71 {
+        private int[] m;
+        private int temp = 0;
+        public Solution71(int[] w) {
+            m = new int[w.length];
+            for (int i = 0; i < w.length; ++i) {
+                temp += w[i];
+                m[i] = temp;
+            }
+        }
+
+        public int pickIndex() {
+            int p = new Random().nextInt(temp);
+            int l = 0, r = m.length - 1;
+            while(l <= r){
+                int mid = (l + r) / 2;
+                if (p < m[mid]){
+                    if (mid == 0 || m[mid - 1] <= p){
+                        return mid;
+                    }
+                    r = mid - 1;
+                }else{
+                    l = mid + 1;
+                }
+            }
+            return -1;
+        }
+    }
+
+
     /**
      * LCR 074. 合并区间
      *
@@ -1549,6 +1613,89 @@ class offer {
         return ans.toArray(new int[ans.size()][2]);
     }
 
+
+
+    /**
+     * LCR 075. 数组的相对排序
+     * @param arr1
+     * @param arr2
+     * @return int[]
+     * @author xoliu
+     * @create 2024/06/11 下午8:20
+     **/
+    public int[] relativeSortArray(int[] arr1, int[] arr2) {
+        int[] tong = new int[1001];
+        for (int i : arr1) {
+            ++tong[i];
+        }
+        int idx = -1;
+        for (int num : arr2) {
+            while(tong[num] > 0){
+                arr1[++idx] = num;
+                --tong[num];
+            }
+        }
+        //现在只剩下没有出现在arr2里的了，但是这些数字还在桶里
+        for (int i = 0; i < tong.length; ++i) {
+            while(tong[i] > 0){
+                arr1[++idx] = i;
+                --tong[i];
+            }
+        }
+        return arr1;
+    }
+
+
+
+    /**
+     * LCR 076. 数组中的第 K 个最大元素
+     * @param nums
+     * @param k
+     * @return int
+     * @author xoliu
+     * @create 2024/06/11 下午8:29
+     * 要手写堆吗？:emoji
+     **/
+    public int findKthLargest(int[] nums, int k) {
+        Queue<Integer> queue = new PriorityQueue<>(k, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1 - o2;
+            }
+        });
+        for (int i : nums) {
+            queue.offer(i);
+        }
+        return queue.peek();
+    }
+
+
+    
+    /**
+     * LCR 078. 合并 K 个升序链表
+     * @param lists
+     * @return DataStructure.ListNode
+     * @author xoliu
+     * @create 2024/06/11 下午8:55
+     **/
+    public ListNode mergeKLists(ListNode[] lists) {
+        ListNode res = null;
+        for (int i = 0; i < lists.length; ++i) {
+            res = twoMerge(res , lists[i]);
+        }
+        return res;
+    }
+    private ListNode twoMerge(ListNode l1, ListNode l2) {
+        if (l1 == null) return l2;
+        if (l2 == null) return l1;
+        if (l1.val < l2.val){
+            l1.next = twoMerge(l1.next, l2);
+            return l1;
+        }else{
+            l2.next = twoMerge(l1, l2.next);
+            return l2;
+        }
+    }
 
     /**
      * LCR 090. 打家劫舍 II

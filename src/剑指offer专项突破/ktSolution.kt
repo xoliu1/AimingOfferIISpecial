@@ -2,7 +2,6 @@ package 剑指offer专项突破
 
 import DataStructure.TreeNode
 import java.util.*
-import kotlin.math.min
 
 
 /**
@@ -12,12 +11,12 @@ import kotlin.math.min
  * @author xoliu
  * @create 2024/05/05 下午4:50
  **/
-fun inOrderTraversal(root: TreeNode?):List<Int> {
+fun inOrderTraversal(root: TreeNode?): List<Int> {
     var list = LinkedList<Int>()
     var stack = Stack<TreeNode>()
     var curr = root
-    while (curr != null || stack.isNotEmpty()){
-        while (curr != null){
+    while (curr != null || stack.isNotEmpty()) {
+        while (curr != null) {
             stack.push(curr)
             curr = curr.left
         }
@@ -66,7 +65,7 @@ fun findTarget(root: TreeNode?, k: Int): Boolean {
     val set = mutableSetOf<Int>()
     var cur = root
     while (cur != null || !stk.isEmpty()) {
-        while (cur != null){
+        while (cur != null) {
             stk.push(cur)
             cur = cur.left
         }
@@ -187,13 +186,186 @@ fun kSmallestPairs(nums1: IntArray, nums2: IntArray, k: Int): List<List<Int>> {
 }
 
 
+class Trie {
+    var root: TrieNode
+
+    inner class TrieNode {
+        var `val`: Char = 0.toChar()
+        var isEnd: Boolean = false
+        var children: Array<TrieNode?>
+
+        constructor() {
+            this.children = arrayOfNulls(26)
+        }
+
+        constructor(`val`: Char) {
+            this.`val` = `val`
+            this.children = arrayOfNulls(26)
+        }
+    }
+
+    init {
+        root = TrieNode()
+    }
+
+    fun insert(word: String) {
+        var p: TrieNode? = root
+        for (i in 0 until word.length) {
+            val ch = word[i]
+            if (p!!.children[ch.code - 'a'.code] == null) {
+                p.children[ch.code - 'a'.code] = TrieNode(ch)
+            }
+            p = p.children[ch.code - 'a'.code]
+            if (i == word.length - 1) {
+                p!!.isEnd = true
+            }
+        }
+    }
+
+    fun search(word: String): Boolean {
+        var p: TrieNode? = root
+        for (i in 0 until word.length) {
+            val ch = word[i]
+            if (p!!.children[ch.code - 'a'.code] == null) {
+                return false
+            }
+            p = p.children[ch.code - 'a'.code]
+        }
+        return p!!.isEnd
+    }
+
+    fun startsWith(prefix: String): Boolean {
+        var p: TrieNode? = root
+        for (i in 0 until prefix.length) {
+            val ch = prefix[i]
+            if (p!!.children[ch.code - 'a'.code] == null) {
+                return false
+            }
+            p = p.children[ch.code - 'a'.code]
+        }
+        return true
+    }
+}
+
+/**
+ * LCR 063. 单词替换
+ * @param null
+ * @return null
+ * @author xoliu
+ * @create 2024/05/07 下午10:39
+ **/
+fun replaceWords(dictionary: List<String>, sentence: String): String {
+    val trie = Trie()
+
+    // Build trie with dictionary roots
+    for (root in dictionary) {
+        trie.insert(root)
+    }
+
+    val words = sentence.split(" ")
+    val replacedWords = mutableListOf<String>()
+
+    for (word in words) {
+        if (trie.search(word)) {
+            replacedWords.add(word)
+        }
+    }
+
+    return replacedWords.joinToString(" ")
+}
 
 
+/**
+ * LCR 068. 搜索插入位置
+ * @param null
+ * @return null
+ * @author xoliu
+ * @create 2024/05/07 下午11:28
+ **/
+fun searchInsert(nums: IntArray, target: Int): Int {
+    var l = 0
+    var r = nums.size - 1
+    var res = nums.size
+    while (l <= r) {
+        var mid = ((r - l) shr 1) + l
+        if (nums[mid] >= target) {
+            r = mid - 1
+            res = mid
+        } else {
+            l = mid + 1
+        }
+    }
+    return res
+}
+
+/**
+ * LCR 069. 山脉数组的峰顶索引
+ * @param null
+ * @return null
+ * @author xoliu
+ * @create 2024/05/23 下午6:56
+ **/
+fun peakIndexInMountainArray(arr: IntArray): Int {
+    var l = 1
+    var r = arr.size - 2
+    while (l < r) {
+        val mid = l + (r - l) / 2
+        if (arr[mid] < arr[mid + 1]) {
+            l = mid + 1
+        } else {
+            r = mid
+        }
+    }
+    return l
+}
 
 
+/**
+ * LCR 070. 有序数组中的单一元素
+ * @param null
+ * @return null
+ * @author xoliu
+ * @create 2024/05/23 下午7:04
+ **/
+fun singleNonDuplicate(nums: IntArray): Int {
+    return 1
+}
 
 
+/**
+ * LCR 072. x 的平方根
+ * @param null
+ * @return null
+ * @author xoliu
+ * @create 2024/05/23 下午7:19
+ **/
+fun mySqrt(x: Int): Int {
+    var l = 1
+    var r = x
+    while (l <= r) {
+        val mid = l + (r - l) / 2
+        if (mid  <= x / mid){
+            if ((mid + 1) > x / (mid + 1)){
+                return mid
+            }
+            l = mid + 1
+        } else {
+            r = mid - 1
+        }
+    }
+    return 0
+}
 
+/**
+ * LCR 073. 爱吃香蕉的狒狒
+ * @param null
+ * @return null
+ * @author xoliu
+ * @create 2024/05/23 下午7:28
+ **/
+fun minEatingSpeed(piles: IntArray, h: Int): Int {
+return 1
+}
 
 
 
